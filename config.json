@@ -1,0 +1,22 @@
+{
+  "log": { "loglevel": "warning" },
+  "dns": { "servers": ["1.1.1.1", "8.8.8.8"] },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 8080,
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "你的UUID" }],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": { "path": "/你的路径" }
+      }
+    }
+  ],
+  "outbounds": [
+    { "protocol": "freedom", "settings": { "domainStrategy": "UseIPv4" } }
+  ]
+}
