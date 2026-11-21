@@ -171,7 +171,7 @@ vless://你的UUID@你的域名:443?encryption=none&security=tls&sni=你的域�
 - **第一个实例可能有边缘问题**：Xray 启动正常、curl 路径回 400、WS 升级回 101，但 sing-box 实测报 `handshake error: bad "Connection" header`——那个实例的边缘把响应头改成了 `Connection: upgrade, close`，严格客户端拒绝。解决办法：删掉这个实例重建一个，同一镜像、同一配置，新实例就正常了。
 - **8443/tls 端口是死的**：别加，不用管。
 - **Kraftfile 的 spec v0.6 会报版本旧**：构建日志提示 `spec version is older than minimum`，不影响出镜像，不用改。
-- **客机文件描述符上限低，并发一多会短暂断连**：2026-11-20 13:17 实测，Xray 在约 35 秒内报了 83 次 `too many open files`，那段时间接不了任何新连接，之后自己恢复，不用重搭。遇上先等半分钟再测，客户端拨一下开关重连（它可能还攥着断掉那会儿的旧连接）；反复出现就重启实例清掉。
+- **客机文件描述符上限低，并发一多会短暂断连**：2026-11-20 13:17 实测，Xray 在约 35 秒内报了 83 次 `too many open files`，那段时间接不了任何新连接，之后自己恢复。config.json 已加 policy（connIdle 300→60 秒，uplinkOnly/downlinkOnly 1→0），空闲连接更快断开，降低复发概率；2026-11-21 已部署为镜像 v2。这只是缓解，并发一高仍可能耗尽，反复出现就重启实例清掉。
 
 ## 注意事项
 
