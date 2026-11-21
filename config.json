@@ -1,5 +1,6 @@
 {
   "log": { "loglevel": "warning" },
+  "policy": { "levels": { "0": { "connIdle": 60, "uplinkOnly": 0, "downlinkOnly": 0 } } },
   "dns": { "servers": ["1.1.1.1", "8.8.8.8"] },
   "inbounds": [
     {
@@ -7,12 +8,12 @@
       "port": 8080,
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "你的UUID" }],
+        "clients": [{ "id": "e211a916-f923-4278-8813-6a11a03bdd93" }],
         "decryption": "none"
       },
       "streamSettings": {
         "network": "ws",
-        "wsSettings": { "path": "/你的路径" }
+        "wsSettings": { "path": "/ws-1a1e360eb26f" }
       }
     }
   ],
